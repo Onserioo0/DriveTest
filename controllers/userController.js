@@ -1,6 +1,7 @@
 // controllers/userController.js
 
 const User = require('../models/user');
+const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 
 exports.signup = async (req, res) => {
@@ -22,14 +23,28 @@ exports.signup = async (req, res) => {
     }
 };
 
+
 exports.login = async (req, res) => {
     try {
         const { username, password } = req.body;
-
         const user = await User.findOne({ username });
-        if (user && await bcrypt.compare(password, user.password)) {
-            req.session.userId = user._id;
-            req.session.userType = user.userType;
+        
+        if (!user) {
+            return res.status(401).render('login', { errorMessage: 'Incorrect username or password.' });
+        }
+        
+        const isMatch = await bcrypt.compare(password, user.password);
+        
+        if (isMatch) {
+            // Generate a token
+            const token = jwt.sign(
+                { userId: user._id, userType: user.userType },
+                'your_secret_key', // Use an environment variable for the secret key
+                { expiresIn: '1h' } // Token expires in 1 hour
+            );
+
+            // You can send the token in a cookie or in the response body
+            res.cookie('token', token, { httpOnly: true, secure: true }); // Secure: true, only in HTTPS
             return res.redirect('/');
         } else {
             return res.status(401).render('login', { errorMessage: 'Incorrect username or password.' });
