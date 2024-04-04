@@ -1,3 +1,5 @@
+// controllers/userController.js
+
 const User = require('../models/user');
 const bcrypt = require('bcrypt');
 
@@ -31,7 +33,7 @@ exports.login = async (req, res) => {
 
         req.session.userId = user._id;
         req.session.userType = user.userType;
-        res.redirect('/');
+        res.json({ message: "Login successful", redirectUrl: "/g2" });
     } catch (error) {
         console.error('Login error:', error);
         res.status(500).send('Error logging in.');

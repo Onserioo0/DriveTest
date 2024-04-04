@@ -1,103 +1,131 @@
 <!DOCTYPE html>
 <html lang="en">
-    <%- include ('Layout/header'); -%>
+<%- include ('Layout/header'); -%>
+
     <body id="page-top">
         <!-- Navigation-->
         <%- include ('Layout/navbar'); -%>
-        <!-- Masthead-->
-        <header class="masthead">
-            <div class="container px-4 px-lg-5 d-flex h-100 align-items-center justify-content-center">
-                <div class="d-flex justify-content-center">
-                    <div class="container px-4 px-lg-5">
-                        <div class="row gx-4 gx-lg-5">
-                            <div class="col-md-10 col-lg-8 mx-auto text-center">
-                            
-                                <h2 class="text-white mb-5">Enter your Username and Password</h2>
+            <!-- Masthead-->
+            <header class="masthead">
+                <div class="container px-4 px-lg-5 d-flex h-100 align-items-center justify-content-center">
+                    <div class="d-flex justify-content-center">
+                        <div class="container px-4 px-lg-5">
+                            <div class="row gx-4 gx-lg-5">
+                                <div class="col-md-10 col-lg-8 mx-auto text-center">
 
-                                <form class="form-signup" action="/login" method="POST" id="contactForm"  style="background-color: #ffffff65; padding: 20px; border-radius: 8px; box-shadow: 0 2px 5px rgba(243, 243, 243, 0.1);">
-                                    <label for="username" style="margin-bottom: 10px;">Username:</label>
-                                    <input type="text" id="username" name="username" required style="width: 100%; padding: 10px; margin-bottom: 10px; border: 1px solid #ccc; border-radius: 5px;">
-                                    <label for="password" style="margin-bottom: 10px;">Password:</label>
-                                    <input type="password" id="password" name="password" required style="width: 100%; padding: 10px; margin-bottom: 10px; border: 1px solid #ccc; border-radius: 5px;">
-                                    <input type="submit" value="Login" style="width: 100%; padding: 10px; border: none; border-radius: 5px; background-color: #007bff; color: #fff; cursor: pointer;">
-                                </form>
-                                
-                                <!-- Message indicating successful login -->
-                                <div id="loginSuccessMessage" style="display: none; margin-top: 20px;">
-                                    <div class="alert alert-success" role="alert">
-                                        Login successful!
-                                    </div>
-                                    
-                                    <!-- Button to redirect to g2.ejs -->
-                                    <a class="btn btn-primary" href="/g2" style="margin-top: 10px;">Continue</a>
+                                    <h2 class="text-white mb-5">Enter your Username and Password</h2>
+
+                                    <form class="form-signup" action="/login" method="POST" id="contactForm"
+                                        style="background-color: #ffffff65; padding: 20px; border-radius: 8px; box-shadow: 0 2px 5px rgba(243, 243, 243, 0.1);">
+                                        <label for="username" style="margin-bottom: 10px;">Username:</label>
+                                        <input type="text" id="username" name="username" required
+                                            style="width: 100%; padding: 10px; margin-bottom: 10px; border: 1px solid #ccc; border-radius: 5px;">
+                                        <label for="password" style="margin-bottom: 10px;">Password:</label>
+                                        <input type="password" id="password" name="password" required
+                                            style="width: 100%; padding: 10px; margin-bottom: 10px; border: 1px solid #ccc; border-radius: 5px;">
+                                        <input type="submit" value="Login"
+                                            style="width: 100%; padding: 10px; border: none; border-radius: 5px; background-color: #007bff; color: #fff; cursor: pointer;">
+                                        <h4 id="loginErrorMessage" style=" 
+                                        margin: 15px 0 0;
+                                        font-weight: bold;
+                                        color: #00ffbb;
+                                        text-shadow: none;
+                                        filter: invert(1);"></h4>
+                                    </form>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
-        </header>
-        <!-- Signup-->
-        
-           
+            </header>
+            <!-- Signup-->
 
-        
-        <!-- Contact-->
-        <section class="contact-section bg-black">
-            <div class="container px-4 px-lg-5">
-                <div class="row gx-4 gx-lg-5">
-                    <div class="col-md-4 mb-3 mb-md-0">
-                        <div class="card py-4 h-100">
-                            <div class="card-body text-center">
-                                <i class="fas fa-map-marked-alt text-primary mb-2"></i>
-                                <h4 class="text-uppercase m-0">Address</h4>
-                                <hr class="my-4 mx-auto" />
-                                <div class="small text-black-50">333 Pearl St, Brantford , Ontario</div>
+
+
+
+            <!-- Contact-->
+            <section class="contact-section bg-black">
+                <div class="container px-4 px-lg-5">
+                    <div class="row gx-4 gx-lg-5">
+                        <div class="col-md-4 mb-3 mb-md-0">
+                            <div class="card py-4 h-100">
+                                <div class="card-body text-center">
+                                    <i class="fas fa-map-marked-alt text-primary mb-2"></i>
+                                    <h4 class="text-uppercase m-0">Address</h4>
+                                    <hr class="my-4 mx-auto" />
+                                    <div class="small text-black-50">333 Pearl St, Brantford , Ontario</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4 mb-3 mb-md-0">
+                            <div class="card py-4 h-100">
+                                <div class="card-body text-center">
+                                    <i class="fas fa-envelope text-primary mb-2"></i>
+                                    <h4 class="text-uppercase m-0">Email</h4>
+                                    <hr class="my-4 mx-auto" />
+                                    <div class="small text-black-50"><a href="#!">drive.test@gmail.org</a></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4 mb-3 mb-md-0">
+                            <div class="card py-4 h-100">
+                                <div class="card-body text-center">
+                                    <i class="fas fa-mobile-alt text-primary mb-2"></i>
+                                    <h4 class="text-uppercase m-0">Phone</h4>
+                                    <hr class="my-4 mx-auto" />
+                                    <div class="small text-black-50">+1 (519)781-4715</div>
+                                </div>
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-4 mb-3 mb-md-0">
-                        <div class="card py-4 h-100">
-                            <div class="card-body text-center">
-                                <i class="fas fa-envelope text-primary mb-2"></i>
-                                <h4 class="text-uppercase m-0">Email</h4>
-                                <hr class="my-4 mx-auto" />
-                                <div class="small text-black-50"><a href="#!">drive.test@gmail.org</a></div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-4 mb-3 mb-md-0">
-                        <div class="card py-4 h-100">
-                            <div class="card-body text-center">
-                                <i class="fas fa-mobile-alt text-primary mb-2"></i>
-                                <h4 class="text-uppercase m-0">Phone</h4>
-                                <hr class="my-4 mx-auto" />
-                                <div class="small text-black-50">+1 (519)781-4715</div>
-                            </div>
-                        </div>
+                    <div class="social d-flex justify-content-center">
+                        <a class="mx-2" href="#!"><i class="fab fa-twitter"></i></a>
+                        <a class="mx-2" href="#!"><i class="fab fa-facebook-f"></i></a>
+                        <a class="mx-2" href="#!"><i class="fab fa-github"></i></a>
                     </div>
                 </div>
-                <div class="social d-flex justify-content-center">
-                    <a class="mx-2" href="#!"><i class="fab fa-twitter"></i></a>
-                    <a class="mx-2" href="#!"><i class="fab fa-facebook-f"></i></a>
-                    <a class="mx-2" href="#!"><i class="fab fa-github"></i></a>
-                </div>
-            </div>
-        </section>
-        <!-- footer -->
-        <%- include ('Layout/footer'); -%>
-        
-        <!-- scripts -->
-        <%- include ('Layout/scripts'); -%>
-        <script>
-            document.getElementById("contactForm").addEventListener("submit", function(event) {
-                event.preventDefault();
-                
-                // Perform login validation here (e.g., check username and password)
-                
-                // Display message and button on successful login
-                document.getElementById("loginSuccessMessage").style.display = "block";
-            });
-        </script>
+            </section>
+            <!-- footer -->
+            <%- include ('Layout/footer'); -%>
+
+                <!-- scripts -->
+                <%- include ('Layout/scripts'); -%>
+                    <script>
+                        document.getElementById("contactForm").addEventListener("submit", async function (event) {
+                            event.preventDefault();
+
+                            const username = document.getElementById("username").value;
+                            const password = document.getElementById("password").value;
+                            const data = { username, password };
+
+                            try {
+                                const response = await fetch("/login", {
+                                    method: "POST",
+                                    headers: {
+                                        'Content-Type': 'application/json',
+                                    },
+                                    body: JSON.stringify(data),
+                                });
+
+                                if (!response.ok) {
+                                    throw new Error(`Login failed: ${response.statusText}`);
+                                }
+
+                                const responseData = await response.json();
+
+                                if (responseData.redirectUrl) {
+                                    window.location.href = responseData.redirectUrl;
+                                } else {
+                                    throw new Error('Missing redirect URL in response');
+                                }
+                            } catch (error) {
+                                console.error('Error during fetch:', error.message);
+                                document.getElementById("loginErrorMessage").textContent = error.message;
+                            }
+                        });
+                    </script>
+
+
     </body>
+
 </html>

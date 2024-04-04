@@ -1,4 +1,5 @@
 // controllers/gController.js
+
 const User = require('../models/user'); // Adjust the path as per your project structure
 
 exports.showGPage = (req, res) => {
