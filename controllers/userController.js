@@ -1,46 +1,16 @@
-// controllers/userController.js
-const User = require('../models/user'); // Ensure this path is correct
+const User = require('../models/user');
 const bcrypt = require('bcrypt');
-const saltRounds = 10;
-
 
 exports.signup = async (req, res) => {
-    const { username, password, repeatPassword, userType, email } = req.body;
-
-    // Validate input fields
-    if (!username || !email || !password || !repeatPassword || !userType) {
-        return res.status(400).send('Please fill in all fields');
-    }
-
-    if (password !== repeatPassword) {
-        return res.status(400).send('Passwords do not match.');
-    }
-
     try {
+        const { username, password, repeatPassword, userType, email } = req.body;
+
+        if (password !== repeatPassword) return res.status(400).send('Passwords do not match.');
+
         const existingUser = await User.findOne({ username });
-        if (existingUser) {
-            return res.status(400).send('Username already exists.');
-        }
+        if (existingUser) return res.status(400).send('Username already exists.');
 
-        const hashedPassword = await bcrypt.hash(password, saltRounds);
-
-        const newUser = new User({
-            username,
-            password: hashedPassword,
-            email,
-            userType,
-            firstName: 'default',
-            lastName: 'default',
-            licenseNumber: 'default',
-            age: 0,
-            carInfo: {
-                make: 'default',
-                model: 'default',
-                year: 0,
-                plateNumber: 'default',
-            },
-        });
-
+        const newUser = new User({ username, password, userType, email });
         await newUser.save();
 
         res.redirect('/login');
@@ -51,27 +21,17 @@ exports.signup = async (req, res) => {
 };
 
 exports.login = async (req, res) => {
-    const { username, password } = req.body;
-
-    if (!User || !isValidPassword) {
-        return res.render('login', { error: 'Invalid username or password. Please sign up first.' });
-      }
-      
-
     try {
+        const { username, password } = req.body;
         const user = await User.findOne({ username });
-        if (!user) {
-            return res.status(401).send('Incorrect username or password.');
+
+        if (!user || !(await bcrypt.compare(password, user.password))) {
+            return res.status(401).render('login', { errorMessage: 'Incorrect username or password.' });
         }
 
-        const match = await bcrypt.compare(password, user.password);
-        if (match) {
-            req.session.userId = user._id;
-            req.session.isAuthenticated = true;
-            res.redirect('/g2');
-        } else {
-            res.status(401).send('Incorrect username or password.');
-        }
+        req.session.userId = user._id;
+        req.session.userType = user.userType;
+        res.redirect('/');
     } catch (error) {
         console.error('Login error:', error);
         res.status(500).send('Error logging in.');
