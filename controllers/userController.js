@@ -57,11 +57,6 @@ exports.login = async (req, res) => {
         return res.render('login', { error: 'Invalid username or password. Please sign up first.' });
       }
       
-    if (User && isValidPassword) {
-        req.session.userId = User._id;
-        req.session.isAuthenticated = true;
-        res.redirect('/g2');
-      }
 
     try {
         const user = await User.findOne({ username });
@@ -71,10 +66,9 @@ exports.login = async (req, res) => {
 
         const match = await bcrypt.compare(password, user.password);
         if (match) {
-            // Assuming you're using express-session
-            req.session.userId = user._id; // Save user ID in session
-            req.session.userType = user.userType; // Save userType in session for authorization checks
-            res.redirect('/'); // Redirect to home or another page
+            req.session.userId = user._id;
+            req.session.isAuthenticated = true;
+            res.redirect('/g2');
         } else {
             res.status(401).send('Incorrect username or password.');
         }

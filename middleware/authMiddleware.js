@@ -1,4 +1,15 @@
 // middleware/authMiddleware.js
+const jwt = require('jsonwebtoken');
+
+// Example middleware for checking if the user is authenticated and a driver
+const requireDriver = (req, res, next) => {
+  // Logic to check if the user is authenticated and a driver
+  if (req.user && req.user.userType === 'Driver') {
+    next();
+  } else {
+    res.status(403).send('Unauthorized');
+  }
+};
 
 const ensureAuthenticatedAndDriver = (req, res, next) => {
     if (req.session.userId && req.session.userType === 'Driver') {
@@ -15,4 +26,4 @@ const attachUserInfo = (req, res, next) => {
 };
 
 
-module.exports = { ensureAuthenticatedAndDriver, attachUserInfo };
+module.exports = { ensureAuthenticatedAndDriver, attachUserInfo, requireDriver };

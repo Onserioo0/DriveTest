@@ -36,28 +36,11 @@ const userSchema = new mongoose.Schema({
     }
 });
 
-// Password hashing middleware before saving a new user
-userSchema.pre('save', function (next) {
-    if (this.isModified('password')) {
-        bcrypt.hash(this.password, saltRounds, (err, hash) => {
-            if (err) return next(err);
-            this.password = hash;
-            next();
-        });
-    } else {
-        next();
+userSchema.pre('save', async function(next) {
+    if (this.isModified('licenseNumber')) {
+        this.licenseNumber = await bcrypt.hash(this.licenseNumber, saltRounds);
     }
-
-    // Only encrypt if licenseNumber is modified or new
-    if (this.isModified('licenseNumber') || this.isNew) {
-        bcrypt.hash(this.licenseNumber, saltRounds, (err, hash) => {
-            if (err) return next(err);
-            this.licenseNumber = hash;
-            next();
-        });
-    } else {
-        next();
-    }
+    next();
 });
 
 const User = mongoose.model('User', userSchema);
