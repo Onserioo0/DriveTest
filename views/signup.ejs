@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+    <%- include ('Layout/header'); -%>
+    <body id="page-top">
+        <!-- Navigation-->
+        <%- include ('Layout/navbar'); -%>
+        <!-- Masthead-->
+        <header class="masthead">
+            <div class="container px-4 px-lg-5 d-flex h-100 align-items-center justify-content-center">
+                <div class="d-flex justify-content-center">
+                    <div class="container px-4 px-lg-5">
+                        <div class="row gx-4 gx-lg-5">
+                            <div class="col-md-10 col-lg-8 mx-auto text-center">
+                            
+                                <h2 class="text-white mb-5">Create Your Account</h2>
+                                <form class="form-signup" action="/signup" method="POST" style="background-color: #ffffff65; padding: 20px; border-radius: 8px; box-shadow: 0 2px 5px rgba(243, 243, 243, 0.1);">
+                                    <label for="username" style="margin-bottom: 10px;">Username:</label>
+                                    <input type="text" id="username" name="username" required style="width: 100%; padding: 10px; margin-bottom: 10px; border: 1px solid #ccc; border-radius: 5px;">
+                                    
+                                    <label for="email" style="margin-bottom: 10px;">Email:</label>
+                                    <input type="email" id="email" name="email" required style="width: 100%; padding: 10px; margin-bottom: 10px; border: 1px solid #ccc; border-radius: 5px;">
+                                    
+                                    <label for="password" style="margin-bottom: 10px;">Password:</label>
+                                    <input type="password" id="password" name="password" required style="width: 100%; padding: 10px; margin-bottom: 10px; border: 1px solid #ccc; border-radius: 5px;">
+                                    
+                                    <label for="repeatPassword" style="margin-bottom: 10px;">Repeat Password:</label>
+                                    <input type="password" id="repeatPassword" name="repeatPassword" required style="width: 100%; padding: 10px; margin-bottom: 20px; border: 1px solid #ccc; border-radius: 5px;">
+                                    
+                                    <label for="userType" style="margin-bottom: 10px;">User Type:</label>
+                                    <select id="userType" name="userType" required style="width: 100%; padding: 10px; margin-bottom: 20px; border: 1px solid #ccc; border-radius: 5px;">
+                                        <option value="Driver">Driver</option>
+                                        <option value="Examiner">Examiner</option>
+                                        <option value="Admin">Admin</option>
+                                    </select>
+                                    
+                                    <input type="submit" value="Sign Up" style="width: 100%; padding: 10px; border: none; border-radius: 5px; background-color: #007bff; color: #fff; cursor: pointer;">
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+        
+        <!-- Contact and Footer sections remain the same, so they are not repeated here. -->
+        <%- include ('Layout/footer'); -%>
+        <%- include ('Layout/scripts'); -%>
+    </body>
+</html>
