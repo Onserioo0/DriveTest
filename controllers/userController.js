@@ -24,18 +24,26 @@ exports.signup = async (req, res) => {
 
 exports.login = async (req, res) => {
     try {
+        // Extract username and password from request body
         const { username, password } = req.body;
-        const user = await User.findOne({ username });
 
-        if (!user || !(await bcrypt.compare(password, user.password))) {
-            return res.status(401).render('login', { errorMessage: 'Incorrect username or password.' });
+        // Attempt to find the user by username
+        const user = await User.findOne({ username: username });
+
+        // If user is found and password matches
+        if (user && await bcrypt.compare(password, user.password)) {
+            // Here, you can set up your session or token
+            req.session.userId = user._id; // Example for session-based auth
+            req.session.userType = user.userType; // Storing additional user info in session
+            // Redirect or respond as necessary, e.g., with a success message or redirect URL
+            res.json({ message: "Login successful", redirectUrl: "/" }); // Adjust as needed
+        } else {
+            // Respond with 401 Unauthorized if user not found or password mismatch
+            return res.status(401).json({ error: 'Login failed: Unauthorized' });
         }
-
-        req.session.userId = user._id;
-        req.session.userType = user.userType;
-        res.json({ message: "Login successful", redirectUrl: "/g2" });
     } catch (error) {
         console.error('Login error:', error);
-        res.status(500).send('Error logging in.');
+        // Respond with 500 Internal Server Error or a custom error message
+        res.status(500).json({ errorMessage: 'Error logging in.' });
     }
 };
