@@ -9,33 +9,19 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarResponsive">
             <ul class="navbar-nav ms-auto">
-                <!-- Always show Dashboard link -->
                 <li class="nav-item"><a class="nav-link" href="/">Dashboard</a></li>
-
-                <% if (locals.isAuthenticated) { %>
-                    <!-- Conditionally show links if the user is logged in -->
-
-                    <% if (locals.userType==='Driver' ) { %>
-                        <!-- Show these links to logged-in Drivers -->
-                        <li class="nav-item"><a class="nav-link" href="/g2">G2 Page</a></li>
-                        <li class="nav-item"><a class="nav-link" href="/g">G Page</a></li>
+                <% if (isAuthenticated) { %>
+                    <% if (userType==='Driver' ) { %>
+                        <li class="nav-item"><a class="nav-link" href="/g2">G2 Test</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/g">G Test</a></li>
                         <% } %>
-
-                            <% if (locals.userType==='Admin' ) { %>
-                                <!-- Show this link to logged-in Admins -->
-                                <li class="nav-item"><a class="nav-link" href="/appointment">Manage Appointments</a>
-                                </li>
+                            <li class="nav-item"><a class="nav-link" href="/logout">Logout</a></li>
+                            <% } else { %>
+                                <li class="nav-item"><a class="nav-link" href="/login">Login</a></li>
+                                <li class="nav-item"><a class="nav-link" href="/signup">Signup</a></li>
                                 <% } %>
-
-                                    <!-- Logout link for all logged-in users -->
-                                    <li class="nav-item"><a class="nav-link" href="/logout">Logout</a></li>
-
-                                    <% } else { %>
-                                        <!-- Show these links only if the user is not logged in -->
-                                        <li class="nav-item"><a class="nav-link" href="/login">Login</a></li>
-                                        <li class="nav-item"><a class="nav-link" href="/signup">Signup</a></li>
-                                        <% } %>
             </ul>
+
 </nav>
 
 </div>

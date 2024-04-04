@@ -9,11 +9,15 @@ const { attachUserInfo } = require('./middleware/authMiddleware');
 const app = express();
 
 app.use(session({
-    secret: 'secret',
+    secret: 'yourSecretKey',
     resave: false,
     saveUninitialized: true,
-    cookie: { secure: 'auto' }
+    cookie: {
+        secure: process.env.NODE_ENV === "production", // Ensure secure in production
+        httpOnly: true // Mitigate XSS attack risk
+    }
 }));
+
 
 app.use(attachUserInfo);
 
@@ -48,6 +52,8 @@ app.set('view engine', 'ejs');
 app.use(express.static('public'));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use('/', indexRoutes);
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
 // Use routes
 app.use('/', userRoutes);
