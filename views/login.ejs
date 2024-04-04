@@ -99,7 +99,7 @@
                             const data = { username, password };
 
                             try {
-                                const response = await fetch('http://localhost:5000/login', {
+                                fetch('http://localhost:5000/login', {
                                     method: 'POST',
                                     headers: {
                                         'Content-Type': 'application/json',
@@ -108,16 +108,22 @@
                                 })
                                     .then(response => {
                                         if (!response.ok) {
+                                            if (response.status === 401) {
+                                                throw new Error('Login failed: Unauthorized. Please check your credentials.');
+                                            }
                                             throw new Error('Network response was not ok');
                                         }
                                         return response.json();
                                     })
                                     .then(data => {
+                                        // Handle successful login
                                         console.log(data);
                                     })
                                     .catch(error => {
                                         console.error('There has been a problem with your fetch operation:', error);
+                                        // Update the UI to show the error message to the user
                                     });
+
 
                             } catch (error) {
                                 console.error('Error during fetch:', error.message);
