@@ -24,26 +24,18 @@ exports.signup = async (req, res) => {
 
 exports.login = async (req, res) => {
     try {
-        // Extract username and password from request body
         const { username, password } = req.body;
-        console.log(username);
-        console.log(password);
 
-        // Attempt to find the user by username
-        const user = await User.find({ username }).limit(1);
-        console.log(user); // Log the found user
-
-        // If user is found and password matches
-        if (!user || !(await bcrypt.compare(password, user.password))) {
-            return res.status(401).render('login', { errorMessage: 'Incorrect username or password.' });
-        } else {
+        const user = await User.findOne({ username });
+        if (user && await bcrypt.compare(password, user.password)) {
             req.session.userId = user._id;
             req.session.userType = user.userType;
             return res.redirect('/');
+        } else {
+            return res.status(401).render('login', { errorMessage: 'Incorrect username or password.' });
         }
     } catch (error) {
         console.error('Login error:', error);
-        // Respond with 500 Internal Server Error or a custom error message
-        res.status(500).json({ errorMessage: 'Error logging in.' });
+        res.status(500).render('login', { errorMessage: 'An error occurred during login.' });
     }
 };
