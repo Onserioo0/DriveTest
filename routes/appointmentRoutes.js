@@ -4,7 +4,7 @@ const express = require('express');
 const router = express.Router();
 
 const { ensureAuthenticated, ensureAuthenticatedAndDriver } = require('../middleware/authMiddleware');
-const AppointmentController = require('../controllers/appointmentController');
+const AppointmentController = require('../app/controllers/appointmentController');
 
 // Middleware to check if user is authenticated and is a Driver
 router.use(ensureAuthenticated);

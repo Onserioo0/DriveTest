@@ -32,12 +32,12 @@ app.use(express.urlencoded({ extended: true }));
 
 // Routes
 const userRoutes = require('./routes/userRoutes');
-const gRoutes = require('./routes/gRoutes');
-const indexRoutes = require('./routes/indexRoutes');
+const authRoutes = require('./routes/authRoutes');
+const appointmentRoutes = require('./routes/appointmentRoutes');
 
-app.use('/', indexRoutes);
+app.use('/', authRoutes);
 app.use('/', userRoutes);
-app.use('/', gRoutes);
+app.use('/', appointmentRoutes);
 
 // Server initialization
 app.listen(PORT, () => {

@@ -2,19 +2,19 @@
 
 const express = require('express');
 const router = express.Router();
-const gController = require('../controllers/gController');
+const authController = require('../app/controllers/authController');
 const { ensureAuthenticatedAndDriver } = require('../middleware/authMiddleware');
 
 
 // Route to display the G page
-router.get('/g', ensureAuthenticatedAndDriver, gController.showGPage);
+router.get('/g', ensureAuthenticatedAndDriver, authController.showGPage);
 
 // Route to display the G2 page
-router.get('/g2', ensureAuthenticatedAndDriver, gController.showG2Page);
+router.get('/g2', ensureAuthenticatedAndDriver, authController.showG2Page);
 
 
 // Route for handling form submission from the G2 page
-router.post('/submit_g2', ensureAuthenticatedAndDriver, gController.submitG2Form);
+router.post('/submit_g2', ensureAuthenticatedAndDriver, authController.submitG2Form);
 
 // Improved error handling and response consistency
 router.post('/fetchUser', ensureAuthenticatedAndDriver, async (req, res) => {
