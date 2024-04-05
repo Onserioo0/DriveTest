@@ -1,0 +1,24 @@
+<!-- app/views/layouts/main.ejs -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <%- include('header'); -%>
+    <title><%= title %></title>
+</head>
+<body id="page-top">
+    <!-- Navigation -->
+    <%- include('navbar'); -%>
+    
+    <!-- Page-specific content will be inserted here -->
+    <main role="main" class="container">
+        <%- body -%>
+    </main>
+    
+    <!-- Footer -->
+    <%- include('footer'); -%>
+    
+    <!-- Optional Scripts -->
+    <%- include('scripts'); -%>
+</body>
+</html>

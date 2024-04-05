@@ -1,16 +1,23 @@
-// routes/indexRoutes.js
+// routes/appointmentRoutes.js
+
 const express = require('express');
 const router = express.Router();
 
-router.get('/', (req, res) => {
-  const isAuthenticated = req.session.userId; // Check if the user is authenticated
-  const userType = req.session.userType; // Get the user's userType from the session
+const { ensureAuthenticated, ensureAuthenticatedAndDriver } = require('../middleware/authMiddleware');
+const AppointmentController = require('../controllers/appointmentController');
 
-  // Render the template with the necessary data
-  res.render('index', {
-    isAuthenticated,
-    showGLinks: isAuthenticated && userType === 'Driver' // Determine if G links should be shown
-  });
-});
+// Middleware to check if user is authenticated and is a Driver
+router.use(ensureAuthenticated);
+router.use(ensureAuthenticatedAndDriver);
+
+// Route to display appointments dashboard or booking page for Drivers
+router.get('/dashboard', AppointmentController.displayAppointmentsDashboard);
+
+// Route to display form for booking a new appointment
+router.get('/book', AppointmentController.showAppointmentBookingForm);
+
+// Route to handle the submission of the booking form
+router.post('/book', AppointmentController.handleAppointmentBooking);
 
 module.exports = router;
+

@@ -1,19 +1,20 @@
 // middleware/authMiddleware.js
 
 const jwt = require('jsonwebtoken');
+require('dotenv').config();
 
 const verifyToken = (req, res, next) => {
     const token = req.cookies.token || ''; // Assuming the token is sent in a cookie
     try {
         if (!token) {
-            return res.status(401).json({ errorMessage: 'Unauthorized' });
+            return res.status(401).send('Unauthorized: No token provided');
         }
-        const decoded = jwt.verify(token, 'your_secret_key');
+        const decoded = jwt.verify(token, process.env.JWT_SECRET);
         req.user = decoded; // Add decoded user info to request object
         next();
     } catch (error) {
-        console.error('Token error:', error);
-        return res.status(401).json({ errorMessage: 'Unauthorized' });
+        console.error('Token error:', error.message);
+        return res.status(401).send('Unauthorized: Invalid token');
     }
 };
 
@@ -40,12 +41,5 @@ const ensureAuthenticatedAndAdmin = (req, res, next) => {
       res.redirect('/login');
   }
 };
-
-// const attachUserInfo = (req, res, next) => {
-//   res.locals.isAuthenticated = !!req.session.userId;
-//   res.locals.userType = req.session.userType || '';
-//   next();
-// };
-
 
 module.exports = { ensureAuthenticated, ensureAuthenticatedAndDriver, ensureAuthenticatedAndAdmin, verifyToken };

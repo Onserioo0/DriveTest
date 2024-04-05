@@ -1,0 +1,36 @@
+<!-- app/views/user/dashboard.ejs -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <%- include('../Layout/header.ejs'); -%>
+    <title>User Dashboard</title>
+</head>
+<body>
+    <%- include('../Layout/navbar.ejs'); -%>
+
+    <main class="container mt-5">
+        <h1>Welcome, <%= user.username %>!</h1>
+        <p>This is your dashboard.</p>
+
+        <section>
+            <h2>Your Information</h2>
+            <p><strong>Username:</strong> <%= user.username %></p>
+            <p><strong>Email:</strong> <%= user.email %></p>
+            <p><strong>User Type:</strong> <%= user.userType %></p>
+            <!-- Add more user details here -->
+        </section>
+
+        <section>
+            <h2>Actions</h2>
+            <ul>
+                <li><a href="/profile/edit">Edit Profile</a></li>
+                <li><a href="/appointments">View Appointments</a></li>
+                <!-- Add more actions relevant to the user type -->
+            </ul>
+        </section>
+    </main>
+
+    <%- include('../Layout/footer.ejs'); -%>
+</body>
+</html>

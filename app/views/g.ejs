@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+    <%- include ('Layout/header'); -%>
+    <body id="page-top">
+        <!-- Navigation-->
+        <%- include ('Layout/navbar'); -%>
+        <!-- Masthead-->
+        
+        <!-- Projects-->
+        <section class="signup-section" id="signup">
+            <div class="container px-4 px-lg-5">
+                <div class="row gx-4 gx-lg-5">
+                    <div class="col-md-10 col-lg-8 mx-auto text-center">
+                        <h2 class="text-white mb-5">License Plate Number</h2>
+                        <!-- * * * * * * * * * * * * * * *-->
+                        <!-- * * SB Forms Contact Form * *-->
+                        <!-- * * * * * * * * * * * * * * *-->
+                        <!-- This form is pre-integrated with SB Forms.-->
+                        <!-- To make this form functional, sign up at-->
+                        <!-- https://startbootstrap.com/solution/contact-forms-->
+                        <!-- to get an API token!-->
+                        <form class="form-signup" id="fetchUserForm" action="/fetchUser" method="post">
+                            <!-- License plate number input -->
+                            <div class="row input-group-newsletter">
+                                <div class="col">
+                                    <input class="form-control" id="licenseNumber" type="text" placeholder="Enter license plate number..." aria-label="Enter license plate number..." name="licenseNumber" required/>
+                                </div>
+                                <div class="col-auto">
+                                    <button class="btn btn-primary" id="submitButton" type="submit">Submit</button>
+                                </div>
+                            </div>
+                        </form>
+                      
+                         <!-- Display user details here -->
+                         <% if (user) { %>
+                            <div class="mt-4" style="max-width: 600px; margin: 0 auto;">
+                                <h3 style="color: #090de7; font-size: 24px; text-align: center; margin-bottom: 20px;">User Details:</h3>
+                                <form class="form-signup" id="updateUserForm" action="/updateUser" method="post">
+                                    <div class="form-group" style="margin-bottom: 20px;">
+                                        <label for="firstName" style="font-weight: bold; color: wheat;">First Name:</label>
+                                        <input class="form-control" type="text" id="firstName" name="firstName" value="<%= user.firstName %>" readonly style="width: 100%; padding: 10px; font-size: 16px; border-radius: 5px; border: 1px solid #ccc;">
+                                    </div>
+                                    <div class="form-group" style="margin-bottom: 20px;">
+                                        <label for="lastName" style="font-weight: bold; color: wheat;">Last Name:</label>
+                                        <input class="form-control" type="text" id="lastName" name="lastName" value="<%= user.lastName %>" readonly style="width: 100%; padding: 10px; font-size: 16px; border-radius: 5px; border: 1px solid #ccc;">
+                                    </div>
+                                    <div class="form-group" style="margin-bottom: 20px;">
+                                        <label for="licenseNumber" style="font-weight: bold; color: wheat;">License Number:</label>
+                                        <input class="form-control" type="text" id="licenseNumber" name="licenseNumber" value="<%= user.licenseNumber %>" readonly style="width: 100%; padding: 10px; font-size: 16px; border-radius: 5px; border: 1px solid #ccc;">
+                                    </div>
+                                    <div class="form-group" style="margin-bottom: 20px;">
+                                        <label for="age" style="font-weight: bold; color: wheat;">Age:</label>
+                                        <input class="form-control" type="text" id="age" name="age" value="<%= user.age %>" readonly style="width: 100%; padding: 10px; font-size: 16px; border-radius: 5px; border: 1px solid #ccc;">
+                                    </div>
+                                    <div class="car-info" style="margin-top: 30px;">
+                                        <h4 style="color:#090de7; margin-bottom: 15px;">Car Information:</h4>
+                                        <div class="form-group" style="margin-bottom: 20px;">
+                                            <label for="make" style="font-weight: bold; color: wheat;">Make:</label>
+                                            <input class="form-control" type="text" id="make" name="make" value="<%= user.carInfo.make %>" style="width: 100%; padding: 10px; font-size: 16px; border-radius: 5px; border: 1px solid #ccc;">
+                                        </div>
+                                        <div class="form-group" style="margin-bottom: 20px;">
+                                            <label for="model" style="font-weight: bold; color: wheat;">Model:</label>
+                                            <input class="form-control" type="text" id="model" name="model" value="<%= user.carInfo.model %>" style="width: 100%; padding: 10px; font-size: 16px; border-radius: 5px; border: 1px solid #ccc;">
+                                        </div>
+                                        <div class="form-group" style="margin-bottom: 20px;">
+                                            <label for="year" style="font-weight: bold; color: wheat;">Year:</label>
+                                            <input class="form-control" type="text" id="year" name="year" value="<%= user.carInfo.year %>" style="width: 100%; padding: 10px; font-size: 16px; border-radius: 5px; border: 1px solid #ccc;">
+                                        </div>
+                                        <div class="form-group" style="margin-bottom: 20px;">
+                                            <label for="plateNumber" style="font-weight: bold; color: wheat;">Plate Number:</label>
+                                            <input class="form-control" type="text" id="plateNumber" name="plateNumber" value="<%= user.carInfo.plateNumber %>" style="width: 100%; padding: 10px; font-size: 16px; border-radius: 5px; border: 1px solid #ccc;">
+                                        </div>
+                                    </div>
+                                    <div class="col-auto">
+                                        <button class="btn btn-primary" id="submitButton" type="submit" style="display: block; width: 100%; padding: 10px; font-size: 18px; text-align: center; background-color: #007bff; border: none; border-radius: 5px; color: #fff; cursor: pointer; transition: background-color 0.3s ease;">Update</button>
+                                    </div>
+                                </form>
+                            </div>
+                            
+                            
+                        <% } %>
+                        
+                    
+                    
+                    </div>
+                </div>
+            </div>
+        </section>
+
+         
+
+        <!-- Contact-->
+        <section class="contact-section bg-black">
+            <div class="container px-4 px-lg-5">
+                <div class="row gx-4 gx-lg-5">
+                    <div class="col-md-4 mb-3 mb-md-0">
+                        <div class="card py-4 h-100">
+                            <div class="card-body text-center">
+                                <i class="fas fa-map-marked-alt text-primary mb-2"></i>
+                                <h4 class="text-uppercase m-0">Address</h4>
+                                <hr class="my-4 mx-auto" />
+                                <div class="small text-black-50">333 Pearl St, Brantford , Ontario</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 mb-3 mb-md-0">
+                        <div class="card py-4 h-100">
+                            <div class="card-body text-center">
+                                <i class="fas fa-envelope text-primary mb-2"></i>
+                                <h4 class="text-uppercase m-0">Email</h4>
+                                <hr class="my-4 mx-auto" />
+                                <div class="small text-black-50"><a href="#!">drive.test@gmail.org</a></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 mb-3 mb-md-0">
+                        <div class="card py-4 h-100">
+                            <div class="card-body text-center">
+                                <i class="fas fa-mobile-alt text-primary mb-2"></i>
+                                <h4 ss="text-uppercase m-0">Phone</h4>
+                                <hr class="my-4 mx-auto" />
+                                <div class="small text-black-50">+1 (519)781-4715</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="social d-flex justify-content-center">
+                    <a class="mx-2" href="#!"><i class="fab fa-twitter"></i></a>
+                    <a class="mx-2" href="#!"><i class="fab fa-facebook-f"></i></a>
+                    <a class="mx-2" href="#!"><i class="fab fa-github"></i></a>
+                </div>
+            </div>
+        </section>
+        <section id="userDetails" style="display: none;">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-6 offset-md-3">
+                        <h3>User Details:</h3>
+                        <div id="userFirstName"></div>
+                        <div id="userLastName"></div>
+                        <!-- Add other user details here -->
+                    </div>
+                </div>
+                
+            </div>
+        </section>
+    
+        <!-- footer -->
+        <%- include ('Layout/footer'); -%>
+        
+        <!-- scripts -->
+        <%- include ('Layout/scripts'); -%>
+       
+    </body>
+</html>

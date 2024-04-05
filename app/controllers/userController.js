@@ -1,56 +1,83 @@
-// controllers/userController.js
+//  app/controllers/userController.js
 
 const User = require('../models/userModel');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
+require('dotenv').config();
+
+// Specify the number of salt rounds for bcrypt
+const saltRounds = 10;
 
 exports.signup = async (req, res) => {
     try {
         const { username, password, repeatPassword, userType, email } = req.body;
 
-        if (password !== repeatPassword) return res.status(400).send('Passwords do not match.');
+        // Validate passwords match
+        if (password !== repeatPassword) {
+            return res.status(400).send('Passwords do not match.');
+        }
 
+        // Check for existing user
         const existingUser = await User.findOne({ username });
-        if (existingUser) return res.status(400).send('Username already exists.');
+        if (existingUser) {
+            return res.status(400).send('Username already exists.');
+        }
 
-        const newUser = new User({ username, password, userType, email });
+        // Hash password
+        const hashedPassword = await bcrypt.hash(password, saltRounds);
+
+        // Create new user
+        const newUser = new User({
+            username,
+            password: hashedPassword, // Store hashed password
+            userType,
+            email
+        });
+
         await newUser.save();
-        console.log('The user is:', newUser);
+        console.log('User created:', newUser);
 
-        res.redirect('/login');
-        console.log('The user is:', newUser);
+        // Automatically log in the user after signup and redirect to the home page
+        const token = jwt.sign(
+            { userId: newUser._id, userType: newUser.userType },
+            process.env.JWT_SECRET_KEY,
+            { expiresIn: '1h' }
+        );
 
+        res.cookie('token', token, { httpOnly: true, secure: true });
+        res.redirect('/'); // Redirect to the home page or dashboard
     } catch (error) {
         console.error('Signup error:', error);
         res.status(500).send('Error signing up.');
     }
 };
 
-
 exports.login = async (req, res) => {
     try {
         const { username, password } = req.body;
         const user = await User.findOne({ username });
-        
+
+        // Generic error message for security
+        const errorMessage = 'Incorrect username or password.';
+
         if (!user) {
-            return res.status(401).render('login', { errorMessage: 'Incorrect username or password.' });
+            return res.status(401).render('login', { errorMessage });
         }
-        
+
         const isMatch = await bcrypt.compare(password, user.password);
-        
+
         if (isMatch) {
             // Generate a token
             const token = jwt.sign(
                 { userId: user._id, userType: user.userType },
-                'your_secret_key', // Use an environment variable for the secret key
-                { expiresIn: '1h' } // Token expires in 1 hour
+                process.env.JWT_SECRET_KEY, // Securely stored secret key
+                { expiresIn: '1h' }
             );
 
-            // You can send the token in a cookie or in the response body
-            res.cookie('token', token, { httpOnly: true, secure: true }); // Secure: true, only in HTTPS
-            return res.redirect('/');
+            res.cookie('token', token, { httpOnly: true, secure: true });
+            return res.redirect('/'); // Redirect to home page or dashboard
         } else {
-            return res.status(401).render('login', { errorMessage: 'Incorrect username or password.' });
+            return res.status(401).render('login', { errorMessage });
         }
     } catch (error) {
         console.error('Login error:', error);

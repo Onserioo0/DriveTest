@@ -1,0 +1,68 @@
+ <!-- Bootstrap core JS-->
+ <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+ <!-- Core theme JS-->
+ <script src="../../public/assets/js/main.js"></script>
+
+ <script>
+    document.getElementById('loginForm').addEventListener('submit', function (e) {
+        // Prevent the default form submission
+        e.preventDefault();
+
+        // Get the user input from the form
+        var username = document.getElementById('username').value;
+        var password = document.getElementById('password').value;
+
+        // Make the fetch request with the user input
+        fetch("http://localhost:5000/login", {
+            "headers": {
+                "accept": "*/*",
+                "accept-language": "en-KE,en-US;q=0.9,en-GB;q=0.8,en;q=0.7",
+                "content-type": "application/json",
+                "sec-ch-ua": "\"Google Chrome\";v=\"123\", \"Not:A-Brand\";v=\"8\", \"Chromium\";v=\"123\"",
+                "sec-ch-ua-mobile": "?0",
+                "sec-ch-ua-platform": "\"Windows\"",
+                "sec-fetch-dest": "empty",
+                "sec-fetch-mode": "cors",
+                "sec-fetch-site": "same-origin"
+            },
+            "referrer": "http://localhost:5000/login",
+            "referrerPolicy": "strict-origin-when-cross-origin",
+            "body": JSON.stringify({ username: username, password: password }),
+            "method": "POST",
+            "mode": "cors",
+            "credentials": "include"
+        })
+            .then(response => {
+                if (response.ok) {
+                    return response.json();
+                }
+                throw new Error('Login failed: Unauthorized. Please check your credentials.');
+            })
+            .then(data => {
+                console.log('Login successful:', data);
+
+            })
+            .catch(error => {
+                console.error('There has been a problem with your fetch operation:', error);
+                document.getElementById("loginErrorMessage").textContent = error.message;
+            });
+    });
+
+
+</script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const form = document.querySelector(".form-signup");
+        form.addEventListener("submit", function(event) {
+            const password = document.getElementById('password').value;
+            const repeatPassword = document.getElementById('repeatPassword').value;
+            
+            if(password !== repeatPassword) {
+                event.preventDefault(); // Prevent form submission
+                alert('Passwords do not match.');
+            }
+            // Additional client-side validation can be added here
+        });
+    });
+</script>

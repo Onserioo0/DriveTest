@@ -1,0 +1,45 @@
+<!-- app/views/appointments/list.ejs -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Appointment List</title>
+    <!-- Include your stylesheet link here -->
+    <link rel="stylesheet" href="/path/to/your/css/style.css">
+</head>
+<body>
+    <header>
+        <h1>Appointment List</h1>
+    </header>
+
+    <main>
+        <table>
+            <thead>
+                <tr>
+                    <th>Date</th>
+                    <th>Time</th>
+                    <th>Available</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% appointments.forEach(function(appointment) { %>
+                    <tr>
+                        <td><%= appointment.date %></td>
+                        <td><%= appointment.time %></td>
+                        <td><%= appointment.isTimeSlotAvailable ? "Yes" : "No" %></td>
+                    </tr>
+                <% }); %>
+            </tbody>
+        </table>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 DriveTest. All rights reserved.</p>
+    </footer>
+
+    <!-- Include any additional scripts here -->
+    <script src="/path/to/your/js/scripts.js"></script>
+</body>
+</html>

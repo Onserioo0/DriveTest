@@ -1,146 +1,51 @@
 <!DOCTYPE html>
 <html lang="en">
-<%- include ('Layout/header'); -%>
 
-    <body id="page-top">
-        <!-- Navigation-->
-        <%- include ('Layout/navbar'); -%>
-            <!-- Masthead-->
-            <header class="masthead">
-                <div class="container px-4 px-lg-5 d-flex h-100 align-items-center justify-content-center">
-                    <div class="d-flex justify-content-center">
-                        <div class="container px-4 px-lg-5">
-                            <div class="row gx-4 gx-lg-5">
-                                <div class="col-md-10 col-lg-8 mx-auto text-center">
+<head>
+    <%- include ('header'); %>
+        <title>Login</title>
+</head>
 
-                                    <h2 class="text-white mb-5">Enter your Username and Password</h2>
-
-                                    <form id="loginForm"
-                                        style="background-color: #ffffff65; padding: 20px; border-radius: 8px; box-shadow: 0 2px 5px rgba(243, 243, 243, 0.1);">
-                                        <label for="username" style="margin-bottom: 10px;">Username:</label>
-                                        <input type="text" id="username" name="username"
-                                            placeholder="Enter your username" required
-                                            style="width: 100%; padding: 10px; margin-bottom: 10px; border: 1px solid #ccc; border-radius: 5px;">
-                                        <label for="password" style="margin-bottom: 10px;">Password:</label>
-                                        <input type="password" id="password" name="password"
-                                            placeholder="Enter your password" required
-                                            style="width: 100%; padding: 10px; margin-bottom: 10px; border: 1px solid #ccc; border-radius: 5px;">
-                                        <input type="submit" value="Login"
-                                            style="width: 100%; padding: 10px; border: none; border-radius: 5px; background-color: #007bff; color: #fff; cursor: pointer;">
-                                        <h4 id="loginErrorMessage" style=" 
-                                        margin: 15px 0 0;
-                                        font-weight: bold;
-                                        color: #00ffbb;
-                                        text-shadow: none;
-                                        filter: invert(1);"></h4>
-                                    </form>
-                                </div>
+<body id="page-top">
+    <!-- Navigation-->
+    <%- include ('navbar'); %>
+        <!-- Masthead-->
+        <header class="masthead">
+            <div class="container px-4 px-lg-5 d-flex h-100 align-items-center justify-content-center">
+                <div class="d-flex justify-content-center">
+                    <div class="container px-4 px-lg-5">
+                        <div class="row gx-4 gx-lg-5">
+                            <div class="col-md-10 col-lg-8 mx-auto text-center">
+                                <h2 class="text-white mb-5">Enter your Username and Password</h2>
+                                <form id="loginForm" action="/login" method="POST"
+                                    style="background-color: #ffffff65; padding: 20px; border-radius: 8px; box-shadow: 0 2px 5px rgba(243, 243, 243, 0.1);">
+                                    <label for="username" style="margin-bottom: 10px;">Username:</label>
+                                    <input type="text" id="username" name="username" placeholder="Enter your username"
+                                        required
+                                        style="width: 100%; padding: 10px; margin-bottom: 10px; border: 1px solid #ccc; border-radius: 5px;">
+                                    <label for="password" style="margin-bottom: 10px;">Password:</label>
+                                    <input type="password" id="password" name="password"
+                                        placeholder="Enter your password" required
+                                        style="width: 100%; padding: 10px; margin-bottom: 10px; border: 1px solid #ccc; border-radius: 5px;">
+                                    <input type="submit" value="Login"
+                                        style="width: 100%; padding: 10px; border: none; border-radius: 5px; background-color: #007bff; color: #fff; cursor: pointer;">
+                                    <!-- Error Message Placeholder -->
+                                    <h4 id="loginErrorMessage"
+                                        style="margin: 15px 0 0; font-weight: bold; color: #ff6b6b;"></h4>
+                                </form>
                             </div>
                         </div>
                     </div>
                 </div>
-            </header>
-            <!-- Signup-->
+            </div>
+        </header>
+        <!-- Contact Section and Footer-->
+        <%- include ('contact'); %>
+            <%- include ('footer'); %>
 
+                <!-- Scripts -->
+                <%- include ('scripts'); %>
 
-
-
-            <!-- Contact-->
-            <section class="contact-section bg-black">
-                <div class="container px-4 px-lg-5">
-                    <div class="row gx-4 gx-lg-5">
-                        <div class="col-md-4 mb-3 mb-md-0">
-                            <div class="card py-4 h-100">
-                                <div class="card-body text-center">
-                                    <i class="fas fa-map-marked-alt text-primary mb-2"></i>
-                                    <h4 class="text-uppercase m-0">Address</h4>
-                                    <hr class="my-4 mx-auto" />
-                                    <div class="small text-black-50">333 Pearl St, Brantford , Ontario</div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-4 mb-3 mb-md-0">
-                            <div class="card py-4 h-100">
-                                <div class="card-body text-center">
-                                    <i class="fas fa-envelope text-primary mb-2"></i>
-                                    <h4 class="text-uppercase m-0">Email</h4>
-                                    <hr class="my-4 mx-auto" />
-                                    <div class="small text-black-50"><a href="#!">drive.test@gmail.org</a></div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-4 mb-3 mb-md-0">
-                            <div class="card py-4 h-100">
-                                <div class="card-body text-center">
-                                    <i class="fas fa-mobile-alt text-primary mb-2"></i>
-                                    <h4 class="text-uppercase m-0">Phone</h4>
-                                    <hr class="my-4 mx-auto" />
-                                    <div class="small text-black-50">+1 (519)781-4715</div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="social d-flex justify-content-center">
-                        <a class="mx-2" href="#!"><i class="fab fa-twitter"></i></a>
-                        <a class="mx-2" href="#!"><i class="fab fa-facebook-f"></i></a>
-                        <a class="mx-2" href="#!"><i class="fab fa-github"></i></a>
-                    </div>
-                </div>
-            </section>
-            <!-- footer -->
-            <%- include ('Layout/footer'); -%>
-
-                <!-- scripts -->
-                <%- include ('Layout/scripts'); -%>
-                    <script>
-                        document.getElementById('loginForm').addEventListener('submit', function (e) {
-                            // Prevent the default form submission
-                            e.preventDefault();
-
-                            // Get the user input from the form
-                            var username = document.getElementById('username').value;
-                            var password = document.getElementById('password').value;
-
-                            // Make the fetch request with the user input
-                            fetch("http://localhost:5000/login", {
-                                "headers": {
-                                    "accept": "*/*",
-                                    "accept-language": "en-KE,en-US;q=0.9,en-GB;q=0.8,en;q=0.7",
-                                    "content-type": "application/json",
-                                    "sec-ch-ua": "\"Google Chrome\";v=\"123\", \"Not:A-Brand\";v=\"8\", \"Chromium\";v=\"123\"",
-                                    "sec-ch-ua-mobile": "?0",
-                                    "sec-ch-ua-platform": "\"Windows\"",
-                                    "sec-fetch-dest": "empty",
-                                    "sec-fetch-mode": "cors",
-                                    "sec-fetch-site": "same-origin"
-                                },
-                                "referrer": "http://localhost:5000/login",
-                                "referrerPolicy": "strict-origin-when-cross-origin",
-                                "body": JSON.stringify({ username: username, password: password }),
-                                "method": "POST",
-                                "mode": "cors",
-                                "credentials": "include"
-                            })
-                                .then(response => {
-                                    if (response.ok) {
-                                        return response.json();
-                                    }
-                                    throw new Error('Login failed: Unauthorized. Please check your credentials.');
-                                })
-                                .then(data => {
-                                    console.log('Login successful:', data);
-
-                                })
-                                .catch(error => {
-                                    console.error('There has been a problem with your fetch operation:', error);
-                                    document.getElementById("loginErrorMessage").textContent = error.message;
-                                });
-                        });
-
-
-                    </script>
-
-
-    </body>
+</body>
 
 </html>

@@ -1,29 +1,34 @@
-// controllers/gController.js
+//  app/controllers/authController.js
 
-const User = require('../models/user'); // Adjust the path as per your project structure
+const User = require('../models/userModel');
 
 exports.showGPage = (req, res) => {
     const user = req.user;
     res.render('g', { user });
   };
 
-exports.showG2Page = async (req, res) => {
+  exports.showG2Page = async (req, res) => {
     const userId = req.session.userId;
+    let user;
+    
     try {
-        const user = await User.findById(userId);
-        res.render('g2', { user });
-      } catch (error) {
+        user = await User.findById(userId);
+        if (!user) {
+            throw new Error('User not found.');
+        }
+
+        const isDefaultData = user.licenseNumber === 'default' && user.carInfo.make === 'default';
+        if (isDefaultData) {
+            return res.render('g2', { message: 'Please enter your information' });
+        } else {
+            res.render('g2', { user });
+        }
+    } catch (error) {
         console.error("Error:", error);
-      }
-    const isDefaultData = user.licenseNumber === 'default' && user.carInfo.make === 'default';
-  
-    if (isDefaultData) {
-      return res.render('g2', { message: 'Please enter your information' });
+        res.status(500).render('g2', { message: 'Error fetching user information', error: error.message });
     }
-  
-    // If user data is not default, render the G2 page with the existing data
-    res.render('g2', { user });
-  };
+};
+
 
 exports.submitG2Form = async (req, res) => {
     // Example of handling a form submission for the G2 page

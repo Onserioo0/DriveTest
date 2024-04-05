@@ -1,0 +1,34 @@
+<!-- app/views/user/profile.ejs  -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <%- include('../Layout/header.ejs'); -%>
+    <title>User Profile</title>
+</head>
+<body>
+    <%- include('../Layout/navbar.ejs'); -%>
+
+    <main class="container mt-5">
+        <h1>Your Profile</h1>
+        <div class="profile-info">
+            <p><strong>Username:</strong> <%= user.username %></p>
+            <p><strong>Email:</strong> <%= user.email %></p>
+            <p><strong>User Type:</strong> <%= user.userType %></p>
+            <!-- Display more user details here -->
+        </div>
+        
+        <h2>Edit Profile</h2>
+        <form action="/user/updateProfile" method="POST">
+            <div class="form-group">
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" value="<%= user.email %>" required>
+            </div>
+            <!-- Add other fields you allow users to update -->
+            <button type="submit">Update Profile</button>
+        </form>
+    </main>
+
+    <%- include('../Layout/footer.ejs'); -%>
+</body>
+</html>

@@ -1,0 +1,26 @@
+<!-- app/views/layouts/error.ejs -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <%- include('header'); %>
+    <title>Error</title>
+</head>
+<body>
+    <%- include('navbar'); %>
+    <main role="main" class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <h1 class="mt-5">Oops! Something went wrong.</h1>
+                <div class="alert alert-danger" role="alert">
+                    <h4 class="alert-heading">Error Details:</h4>
+                    <p><%= message %></p>
+                    <hr>
+                    <p class="mb-0">Please try navigating back or <a href="/" class="alert-link">return to the homepage</a>.</p>
+                </div>
+            </div>
+        </div>
+    </main>
+    <%- include('footer'); %>
+</body>
+</html>

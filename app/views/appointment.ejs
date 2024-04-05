@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<%- include('Layout/header'); -%>
+<body id="page-top">
+    <!-- Navigation-->
+    <%- include('Layout/navbar'); -%>
+
+    <!-- Masthead for Appointment Management-->
+    <header class="masthead">
+        <div class="container px-4 px-lg-5 d-flex h-100 align-items-center justify-content-center">
+            <div class="d-flex justify-content-center">
+                <div class="text-center">
+                    <h1 class="mx-auto my-0 text-uppercase">Manage Appointments</h1>
+                    <h2 class="text-white-50 mx-auto mt-2 mb-5">Create and view appointment slots.</h2>
+                    <!-- Link to add new appointment could go here if separate page/form or could directly include form-->
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Appointment Management Section -->
+    <section class="signup-section" id="appointment">
+        <div class="container px-4 px-lg-5">
+            <div class="row gx-4 gx-lg-5 justify-content-center">
+                <div class="col-lg-8 col-xl-7">
+                    <h2 class="text-white mb-5">Add a New Appointment Slot</h2>
+                    <form action="/appointment/add" method="POST" id="appointmentForm">
+                        <div class="form-floating mb-3">
+                            <input type="date" class="form-control" id="date" name="date" placeholder="Date">
+                            <label for="date">Date</label>
+                        </div>
+                        <div class="form-floating mb-3">
+                            <input type="time" class="form-control" id="time" name="time" placeholder="Time">
+                            <label for="time">Time</label>
+                        </div>
+                        <button class="btn btn-primary" type="submit">Add Slot</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer and Scripts -->
+    <%- include('Layout/footer'); -%>
+    <%- include('Layout/scripts'); -%>
+</body>
+</html>

@@ -1,4 +1,5 @@
-// routes/gRoutes.js
+// routes/authRoutes.js
+
 const express = require('express');
 const router = express.Router();
 const gController = require('../controllers/gController');
@@ -15,22 +16,28 @@ router.get('/g2', ensureAuthenticatedAndDriver, gController.showG2Page);
 // Route for handling form submission from the G2 page
 router.post('/submit_g2', ensureAuthenticatedAndDriver, gController.submitG2Form);
 
-router.post('/fetchUser',ensureAuthenticatedAndDriver , async (req, res) => {
-    const licenseNumber = req.body.licenseNumber;
+// Improved error handling and response consistency
+router.post('/fetchUser', ensureAuthenticatedAndDriver, async (req, res) => {
+    const licenseNumber = req.body.licenseNumber.trim();
+
+    if (!licenseNumber) {
+        // Validate license number input
+        return res.render('g', { errorMessage: 'Please provide a valid license number.' });
+    }
 
     try {
         const user = await User.findOne({ licenseNumber });
         if (user) {
-            res.render('g', { user, message: 'User information updated successfully' });
+            res.render('g', { user, message: 'User information found.' });
         } else {
-            // Render g.ejs with an error message
-            res.render('g', { user: null, errorMessage: 'No user found with the provided license plate number.' });
+            res.render('g', { errorMessage: 'No user found with the provided license number.' });
         }
     } catch (error) {
         console.error("Error fetching user data:", error);
-        res.status(500).json({ message: 'Error fetching user data', error: error.message }); // Send JSON response with error message
+        res.render('error', { message: 'Error fetching user data' }); // Consider using a generic error view
     }
 });
+
 
 router.post('/updateUser', ensureAuthenticatedAndDriver, async (req, res) => {
     const { licenseNumber, make, model, year, plateNumber } = req.body;
