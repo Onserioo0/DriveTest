@@ -5,6 +5,13 @@ const router = express.Router();
 const authController = require('../app/controllers/authController');
 const { ensureAuthenticatedAndDriver } = require('../middleware/authMiddleware');
 
+router.get('/', (req, res) => {
+    if (req.session.userId) {
+        res.redirect('/dashboard'); // Redirect authenticated users to the dashboard
+    } else {
+        res.redirect('/login'); // Redirect unauthenticated users to the login page
+    }
+});
 
 // Route to display the G page
 router.get('/g', ensureAuthenticatedAndDriver, authController.showGPage);
