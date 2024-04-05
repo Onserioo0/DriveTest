@@ -41,11 +41,11 @@ const ensureAuthenticatedAndAdmin = (req, res, next) => {
   }
 };
 
-const attachUserInfo = (req, res, next) => {
-  res.locals.isAuthenticated = !!req.session.userId;
-  res.locals.userType = req.session.userType || '';
-  next();
-};
+// const attachUserInfo = (req, res, next) => {
+//   res.locals.isAuthenticated = !!req.session.userId;
+//   res.locals.userType = req.session.userType || '';
+//   next();
+// };
 
 
-module.exports = { ensureAuthenticated, ensureAuthenticatedAndDriver, ensureAuthenticatedAndAdmin, attachUserInfo, verifyToken };
+module.exports = { ensureAuthenticated, ensureAuthenticatedAndDriver, ensureAuthenticatedAndAdmin, verifyToken };

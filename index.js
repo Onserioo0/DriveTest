@@ -4,8 +4,13 @@ const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const session = require('express-session'); // Assuming you are using express-session for session management
 const PORT = process.env.PORT || 5000;
-const { attachUserInfo } = require('./middleware/authMiddleware');
+// const { attachUserInfo } = require('./middleware/authMiddleware');
 
+// Connect to MongoDB
+mongoose.connect('mongodb+srv://joshuaomirera:T6l5jEcAR3KJuKQL@cluster0.sqykrcv.mongodb.net/', {
+}).then(() => console.log('Connected to MongoDB'))
+  .catch(err => console.error('Could not connect to MongoDB:', err));
+  
 const app = express();
 
 app.use(session({
@@ -19,7 +24,7 @@ app.use(session({
 }));
 
 
-app.use(attachUserInfo);
+// app.use(attachUserInfo);
 
 
 // Routes
@@ -43,10 +48,7 @@ app.get('/login', (req, res) => {
     res.render('login');
 });
 
-// Connect to MongoDB
-mongoose.connect('mongodb+srv://joshuaomirera:T6l5jEcAR3KJuKQL@cluster0.sqykrcv.mongodb.net/', {
-}).then(() => console.log('Connected to MongoDB'))
-  .catch(err => console.error('Could not connect to MongoDB:', err));
+
 
 app.set('view engine', 'ejs');
 app.use(express.static('public'));

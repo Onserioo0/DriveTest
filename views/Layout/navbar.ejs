@@ -10,7 +10,7 @@
         <div class="collapse navbar-collapse" id="navbarResponsive">
             <ul class="navbar-nav ms-auto">
                 <li class="nav-item"><a class="nav-link" href="/">Dashboard</a></li>
-                <% if (isAuthenticated) { %>
+                <% if (ensureAuthenticated) { %>
                     <% if (userType==='Driver' ) { %>
                         <li class="nav-item"><a class="nav-link" href="/g2">G2 Test</a></li>
                         <li class="nav-item"><a class="nav-link" href="/g">G Test</a></li>

@@ -15,8 +15,11 @@ exports.signup = async (req, res) => {
 
         const newUser = new User({ username, password, userType, email });
         await newUser.save();
+        console.log('The user is:', newUser);
 
         res.redirect('/login');
+        console.log('The user is:', newUser);
+
     } catch (error) {
         console.error('Signup error:', error);
         res.status(500).send('Error signing up.');
