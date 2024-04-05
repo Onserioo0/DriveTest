@@ -10,7 +10,7 @@ const PORT = process.env.PORT || 5000;
 mongoose.connect('mongodb+srv://joshuaomirera:T6l5jEcAR3KJuKQL@cluster0.sqykrcv.mongodb.net/', {
 }).then(() => console.log('Connected to MongoDB'))
   .catch(err => console.error('Could not connect to MongoDB:', err));
-  
+
 const app = express();
 
 app.use(session({
@@ -47,7 +47,6 @@ app.get('/signup', (req, res) => {
 app.get('/login', (req, res) => {
     res.render('login');
 });
-
 
 
 app.set('view engine', 'ejs');
